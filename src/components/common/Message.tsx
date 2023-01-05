@@ -1,8 +1,6 @@
-import { Colors } from 'react-native-ui-lib';
 import { StyleSheet, View } from 'react-native';
 import React, { ReactNode } from 'react';
 
-Colors.primary;
 interface MessageProps {
   type?: 'default' | 'info' | 'danger';
   children: ReactNode;

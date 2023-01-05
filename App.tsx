@@ -1,116 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+// It should be imported for global.atob and global.btoa.
+// import '@haechi-labs/face-react-native-sdk/dist/utils/global';
+// import NetworkLogger, { startNetworkLogging } from 'react-native-network-logger';
+import { StyleSheet, ScrollView } from 'react-native';
 
-import React, { type PropsWithChildren } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { View, Image } from 'react-native-ui-lib';
+import { RecoilRoot } from 'recoil';
+import LoginWithFace from './src/components/LoginWithFace';
+import TransactionPlatformCoin from './src/components/TransactionPlatformCoin';
+import ConnectNetwork from './src/components/ConnectNetwork';
+import TransactionErc20 from './src/components/TransactionErc20';
+import TransactionErc721 from './src/components/TransactionErc721';
+import TransactionErc1155 from './src/components/TransactionErc1155';
+import SignMessage from './src/components/SignMessage';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// startNetworkLogging();
 
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({ children, title }) => {
-  const isDarkMode = useColorScheme() === 'dark';
+export default function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <RecoilRoot>
+      <View useSafeArea style={styles.safeContainer}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <Image source={require('./assets/logo.png')} style={styles.logo} />
+          <ConnectNetwork />
+          <LoginWithFace />
+          <TransactionPlatformCoin />
+          <TransactionErc20 />
+          <TransactionErc721 />
+          <TransactionErc1155 />
+          <SignMessage />
+          {/*<NetworkLogger />*/}
+        </ScrollView>
+      </View>
+    </RecoilRoot>
   );
-};
-
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this screen and then come
-            back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">Read the docs to discover what to do next:</Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  safeContainer: {
+    backgroundColor: '#fafafa',
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  container: {
+    padding: 20,
+    paddingBottom: 20,
+    paddingTop: 5,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  logo: {
+    width: '45%',
+    resizeMode: 'contain',
   },
 });
-
-export default App;

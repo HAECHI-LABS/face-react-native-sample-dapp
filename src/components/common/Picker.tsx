@@ -21,10 +21,10 @@ function Picker({ title, value, onChange, items }: PickerProps) {
         onSelect={(selectedItem) => onChange?.(selectedItem)}
         onChangeSearchInputText={() => null}
         defaultValue={value}
-        buttonTextAfterSelection={(selectedItem, index) => {
+        buttonTextAfterSelection={(selectedItem) => {
           return selectedItem;
         }}
-        rowTextForSelection={(item, index) => {
+        rowTextForSelection={(item) => {
           return item;
         }}
         buttonStyle={styles.pickerButton}

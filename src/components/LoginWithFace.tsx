@@ -86,7 +86,7 @@ function LoginWithFace() {
     <Box title={title}>
       {isLoggedIn ? (
         <>
-          {account.balance && <Text></Text>}
+          {account.balance && <Text />}
           {account.balance && (
             <Message type="info">
               <Text text80BO>Account Info</Text>
