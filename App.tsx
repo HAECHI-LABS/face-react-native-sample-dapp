@@ -13,6 +13,7 @@ import TransactionErc20 from './src/components/TransactionErc20';
 import TransactionErc721 from './src/components/TransactionErc721';
 import TransactionErc1155 from './src/components/TransactionErc1155';
 import SignMessage from './src/components/SignMessage';
+import WalletHome from './src/components/WalletHome';
 
 // startNetworkLogging();
 
@@ -24,6 +25,7 @@ export default function App() {
           <Image source={require('./assets/logo.png')} style={styles.logo} />
           <ConnectNetwork />
           <LoginWithFace />
+          <WalletHome />
           <TransactionPlatformCoin />
           <TransactionErc20 />
           <TransactionErc721 />

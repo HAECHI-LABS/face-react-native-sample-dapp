@@ -1,10 +1,10 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { Text } from 'react-native-ui-lib';
 import { providers } from 'ethers';
 import Box from './common/Box';
 import Button from './common/Button';
-import { accountAtom, faceAtom, networkAtom } from '../store';
+import { accountAtom, faceAtom, networkAtom, loginStatusAtom } from '../store';
 import { formatPlatformCoin } from '../libs/platformCoin';
 import Message from './common/Message';
 
@@ -14,7 +14,7 @@ function LoginWithFace() {
   const [face, setFace] = useRecoilState(faceAtom);
   const [network, setNetwork] = useRecoilState(networkAtom);
   const [account, setAccount] = useRecoilState(accountAtom);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginStatusAtom);
 
   const getAccountInfo = useCallback(async () => {
     if (!face) {
@@ -51,7 +51,7 @@ function LoginWithFace() {
         getAccountInfo();
       }
     });
-  }, [face, getAccountInfo]);
+  }, [face, getAccountInfo, setIsLoggedIn]);
 
   if (!face) {
     return (
