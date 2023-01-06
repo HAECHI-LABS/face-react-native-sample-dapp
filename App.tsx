@@ -1,6 +1,7 @@
 // It should be imported for global.atob and global.btoa.
 // import '@haechi-labs/face-react-native-sdk/dist/utils/global';
 // import NetworkLogger, { startNetworkLogging } from 'react-native-network-logger';
+import 'react-native-get-random-values';
 import { StyleSheet, ScrollView } from 'react-native';
 
 import { View, Image } from 'react-native-ui-lib';
