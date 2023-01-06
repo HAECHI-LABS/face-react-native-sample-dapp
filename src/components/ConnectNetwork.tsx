@@ -11,6 +11,7 @@ import { API_KEY } from '../contants/apiKey';
 import { getNetwork } from '../libs/network';
 import TextField from './common/TextField';
 import Message from './common/Message';
+import { Platform } from 'react-native';
 
 const envList = [
   Env.Local,
@@ -42,13 +43,15 @@ function ConnectNetwork() {
     const network = getNetwork(blockchain, env);
 
     setNetwork(network);
-    console.log('network', network);
 
     try {
       const face = new Face({
         apiKey,
         network,
         env,
+        ...(env === Env.Local
+          ? { iframeUrl: Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333' }
+          : {}),
       } as never);
       setFace(face);
     } catch (e) {

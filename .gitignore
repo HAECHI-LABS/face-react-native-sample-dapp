@@ -66,3 +66,7 @@ buck-out/
 # Yalc
 **/.yalc
 **/yalc.lock
+
+# Android
+android/caches
+android/wrapper/dists
