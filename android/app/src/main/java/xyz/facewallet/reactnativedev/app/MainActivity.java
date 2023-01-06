@@ -1,4 +1,4 @@
-package com.facereactnativesampledapp;
+package xyz.facewallet.reactnativedev.app;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -12,7 +12,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "faceReactNativeSampleDapp";
+    return "face-react-native-sample-dapp";
   }
 
   /**

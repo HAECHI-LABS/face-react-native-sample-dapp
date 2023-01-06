@@ -1,4 +1,4 @@
-package com.facereactnativesampledapp.newarchitecture.components;
+package xyz.facewallet.reactnativedev.app.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

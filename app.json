@@ -1,6 +1,6 @@
 {
-  "name": "faceReactNativeSampleDapp",
-  "displayName": "faceReactNativeSampleDapp",
+  "name": "face-react-native-sample-dapp",
+  "displayName": "face-react-native-sample-dapp",
   "ios": {
     "supportsTablet": true,
     "bundleIdentifier": "xyz.facewallet.reactnativedev.app",
