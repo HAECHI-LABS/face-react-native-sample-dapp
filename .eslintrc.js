@@ -22,6 +22,8 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-shadow': ['off'],
         'no-shadow': 'off',
         'no-undef': 'off',

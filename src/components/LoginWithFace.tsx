@@ -78,6 +78,10 @@ function LoginWithFace() {
     await face?.auth.logout();
     setIsLoggedIn(false);
     setAccount({});
+    resetFaceSDK();
+  }
+
+  function resetFaceSDK() {
     setNetwork(null);
     setFace(null);
   }
@@ -100,7 +104,7 @@ function LoginWithFace() {
       ) : (
         <>
           <Button label="Log in with Face wallet" onPress={login} />
-          <Button label="Log out" onPress={logout} />
+          <Button label="Reset Face SDK" onPress={resetFaceSDK} />
         </>
       )}
     </Box>
