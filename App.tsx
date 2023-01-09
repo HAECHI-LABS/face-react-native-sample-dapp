@@ -1,6 +1,3 @@
-// It should be imported for global.atob and global.btoa.
-// import '@haechi-labs/face-react-native-sdk/dist/utils/global';
-// import NetworkLogger, { startNetworkLogging } from 'react-native-network-logger';
 import 'react-native-get-random-values';
 import { StyleSheet, ScrollView } from 'react-native';
 
@@ -14,8 +11,6 @@ import TransactionErc721 from './src/components/TransactionErc721';
 import TransactionErc1155 from './src/components/TransactionErc1155';
 import SignMessage from './src/components/SignMessage';
 import WalletHome from './src/components/WalletHome';
-
-// startNetworkLogging();
 
 export default function App() {
   return (
@@ -31,7 +26,6 @@ export default function App() {
           <TransactionErc721 />
           <TransactionErc1155 />
           <SignMessage />
-          {/*<NetworkLogger />*/}
         </ScrollView>
       </View>
     </RecoilRoot>
