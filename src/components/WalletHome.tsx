@@ -21,7 +21,6 @@ function WalletHome() {
     );
   }
 
-  console.log(isLoggedIn);
   if (!isLoggedIn) {
     return (
       <Box title={title}>

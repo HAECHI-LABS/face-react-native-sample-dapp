@@ -1,12 +1,12 @@
 import { useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { Text } from 'react-native-ui-lib';
-import { providers } from 'ethers';
 import Box from './common/Box';
 import Button from './common/Button';
 import { accountAtom, faceAtom, networkAtom, loginStatusAtom } from '../store';
 import { formatPlatformCoin } from '../libs/platformCoin';
 import Message from './common/Message';
+import { getAccountInfo } from '../libs/accountInfo';
 
 const title = 'Login with Face Wallet';
 
@@ -16,19 +16,12 @@ function LoginWithFace() {
   const [account, setAccount] = useRecoilState(accountAtom);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginStatusAtom);
 
-  const getAccountInfo = useCallback(async () => {
+  const getAccountInfoCallback = useCallback(async () => {
     if (!face) {
       return;
     }
 
-    const provider = new providers.Web3Provider(face.getEthLikeProvider(), 'any');
-
-    const signer = await provider.getSigner();
-    console.log('signer init');
-    const address = await signer.getAddress();
-    console.log('address', address);
-    const balance = await signer.getBalance();
-    const user = await face.auth.getCurrentUser();
+    const { address, balance, user } = await getAccountInfo(face, network!);
 
     console.group('[Account Information]');
     console.log('Balance:', balance);
@@ -37,7 +30,7 @@ function LoginWithFace() {
     console.groupEnd();
 
     setAccount({ address, balance, user });
-  }, [face, setAccount]);
+  }, [face, network, setAccount]);
 
   useEffect(() => {
     if (!face) {
@@ -48,10 +41,10 @@ function LoginWithFace() {
       setIsLoggedIn(result);
 
       if (result) {
-        getAccountInfo();
+        getAccountInfoCallback();
       }
     });
-  }, [face, getAccountInfo, setIsLoggedIn]);
+  }, [face, getAccountInfoCallback, setIsLoggedIn]);
 
   if (!face) {
     return (
@@ -70,7 +63,7 @@ function LoginWithFace() {
       return;
     }
 
-    await getAccountInfo();
+    await getAccountInfoCallback();
     setIsLoggedIn(true);
   }
 
@@ -98,7 +91,7 @@ function LoginWithFace() {
               <Text>Balance: {formatPlatformCoin(account.balance, network!)}</Text>
             </Message>
           )}
-          <Button label="Get account info" onPress={getAccountInfo} />
+          <Button label="Get account info" onPress={getAccountInfoCallback} />
           <Button label="Log out" onPress={logout} />
         </>
       ) : (

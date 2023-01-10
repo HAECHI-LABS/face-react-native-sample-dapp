@@ -49,6 +49,18 @@ export function getNetwork(blockchain: Blockchain | null, env: Env) {
         return Network.KLAYTN;
     }
   }
+  if (blockchain === Blockchain.NEAR) {
+    switch (env) {
+      case Env.Local:
+      case Env.Dev:
+      case Env.StageTest:
+      case Env.ProdTest:
+        return Network.NEAR_TESTNET;
+      case Env.StageMainnet:
+      case Env.ProdMainnet:
+        return Network.NEAR;
+    }
+  }
   if (blockchain === Blockchain.SOLANA) {
     switch (env) {
       case Env.Local:

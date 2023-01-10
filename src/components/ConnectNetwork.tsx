@@ -27,6 +27,7 @@ const blockchainList = [
   Blockchain.POLYGON,
   Blockchain.BNB_SMART_CHAIN,
   Blockchain.KLAYTN,
+  Blockchain.NEAR,
   Blockchain.SOLANA,
 ];
 
@@ -55,7 +56,7 @@ function ConnectNetwork() {
       } as never);
       setFace(face);
     } catch (e) {
-      console.log('Error occurred');
+      console.log('Error occurred', e);
     }
   };
 

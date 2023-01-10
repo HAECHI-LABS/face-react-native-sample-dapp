@@ -11,8 +11,8 @@ export const getPlatFormCoinDecimalByBlockchain = (blockchain: Blockchain): numb
       return 18;
     case Blockchain.SOLANA:
       return 9;
-    // case Blockchain.NEAR:
-    //   return 24;
+    case Blockchain.NEAR:
+      return 24;
     default:
       throw new Error('unsupported blockchain');
   }
@@ -39,9 +39,9 @@ export function networkToBlockchain(network: Network): Blockchain {
     // case Network.BORA:
     // case Network.BORA_TESTNET:
     //   return Blockchain.BORA;
-    // case Network.NEAR:
-    // case Network.NEAR_TESTNET:
-    //   return Blockchain.NEAR;
+    case Network.NEAR:
+    case Network.NEAR_TESTNET:
+      return Blockchain.NEAR;
   }
 
   throw new Error(`Unsupported network: ${network}`);
