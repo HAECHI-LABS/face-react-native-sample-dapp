@@ -27,8 +27,8 @@ const blockchainList = [
   Blockchain.POLYGON,
   Blockchain.BNB_SMART_CHAIN,
   Blockchain.KLAYTN,
-  Blockchain.NEAR,
-  Blockchain.SOLANA,
+  // Blockchain.NEAR,
+  // Blockchain.SOLANA,
 ];
 
 const title = 'Connect Network';
