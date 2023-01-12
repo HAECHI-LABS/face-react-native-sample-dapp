@@ -40,7 +40,7 @@ function ConnectNetwork() {
   const [env, setEnv] = useState<Env>(envList[1]);
   const [apiKey, setApiKey] = useState<string>(API_KEY);
 
-  const connect = () => {
+  const connectNetwork = () => {
     const network = getNetwork(blockchain, env);
 
     setNetwork(network);
@@ -56,7 +56,23 @@ function ConnectNetwork() {
       } as never);
       setFace(face);
     } catch (e) {
-      console.log('Error occurred', e);
+      console.error('Error occurred', e);
+    }
+  };
+
+  const switchNetwork = () => {
+    const network = getNetwork(blockchain, env);
+
+    if (!network) {
+      return;
+    }
+
+    setNetwork(network);
+
+    try {
+      face?.switchNetwork(network);
+    } catch (e) {
+      console.error('Error occurred', e);
     }
   };
 
@@ -68,6 +84,26 @@ function ConnectNetwork() {
           <Text>Env: {env}</Text>
           <Text>Blockchain: {blockchain}</Text>
         </Message>
+
+        <Picker
+          title="Env"
+          value={env}
+          items={envList}
+          onChange={(value) => {
+            setEnv(value as Env);
+          }}
+        />
+        <Picker
+          title="Blockchain"
+          value={blockchain}
+          items={blockchainList}
+          onChange={(value) => {
+            setBlockchain(value as Blockchain);
+          }}
+        />
+        <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
+
+        <Button label="Switch network" onPress={switchNetwork} />
       </Box>
     );
   }
@@ -92,7 +128,7 @@ function ConnectNetwork() {
       />
       <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
 
-      <Button label="Connect network" onPress={connect} />
+      <Button label="Connect network" onPress={connectNetwork} />
     </Box>
   );
 }
