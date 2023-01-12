@@ -1,6 +1,8 @@
+import { LoginProviderType } from '@haechi-labs/face-types';
 import { useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { Text } from 'react-native-ui-lib';
+
 import Box from './common/Box';
 import Button from './common/Button';
 import { accountAtom, faceAtom, networkAtom, loginStatusAtom } from '../store';
@@ -32,20 +34,6 @@ function LoginWithFace() {
     setAccount({ address, balance, user });
   }, [face, network, setAccount]);
 
-  useEffect(() => {
-    if (!face) {
-      return;
-    }
-
-    face.auth.isLoggedIn().then((result: any) => {
-      setIsLoggedIn(result);
-
-      if (result) {
-        getAccountInfoCallback();
-      }
-    });
-  }, [face, getAccountInfoCallback, setIsLoggedIn]);
-
   if (!face) {
     return (
       <Box title={title}>
@@ -57,9 +45,22 @@ function LoginWithFace() {
   }
 
   async function login() {
-    const res = await face?.auth.login();
+    const result = await face?.auth.login();
 
-    if (!res) {
+    if (result === null) {
+      console.log('Login is canceled');
+      return;
+    }
+
+    await getAccountInfoCallback();
+    setIsLoggedIn(true);
+  }
+
+  async function socialLogin(provider: LoginProviderType) {
+    const result = await face?.auth.directSocialLogin(provider);
+
+    if (result === null) {
+      console.log('Login is canceled');
       return;
     }
 
@@ -97,6 +98,9 @@ function LoginWithFace() {
       ) : (
         <>
           <Button label="Log in with Face wallet" onPress={login} />
+          <Button label="Google login" onPress={() => socialLogin('google.com')} />
+          <Button label="Apple login" onPress={() => socialLogin('apple.com')} />
+          <Button label="Facebook login" onPress={() => socialLogin('facebook.com')} />
           <Button label="Reset Face SDK" onPress={resetFaceSDK} />
         </>
       )}
