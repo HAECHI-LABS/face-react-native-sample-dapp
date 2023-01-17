@@ -35,6 +35,8 @@ export async function getAccountInfo(face: Face, network: Network): Promise<Acco
 }
 
 async function getSolanaAccountInfo(face: Face, network: Network, user: FaceLoginResponse) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const solanaProvider = face.solana.getProvider();
   const publicKeys = await solanaProvider.getPublicKeys();
 
@@ -50,6 +52,8 @@ async function getSolanaAccountInfo(face: Face, network: Network, user: FaceLogi
 }
 
 async function getNearAccountInfo(face: Face, network: Network, user: FaceLoginResponse) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const nearProvider = face.near.getProvider();
   const publicKeys = await nearProvider.getPublicKeys();
 
