@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@haechi-labs/face-react-native-sdk": "file:.yalc/@haechi-labs/face-react-native-sdk",
+    "@haechi-labs/face-react-native-sdk": "^1.4.0",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-device-info": "^10.3.0",
