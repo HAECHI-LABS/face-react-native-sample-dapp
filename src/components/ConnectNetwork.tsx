@@ -50,6 +50,7 @@ function ConnectNetwork() {
         apiKey,
         network,
         env,
+        scheme: 'facewebview',
         ...(env === Env.Local
           ? { iframeUrl: Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333' }
           : {}),

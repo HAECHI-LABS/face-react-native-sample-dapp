@@ -1,6 +1,6 @@
 {
   "name": "facereactnativesampledapp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@haechi-labs/face-react-native-sdk": "^1.4.0",
+    "@haechi-labs/face-react-native-sdk": "^1.6.0",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-device-info": "^10.3.0",
