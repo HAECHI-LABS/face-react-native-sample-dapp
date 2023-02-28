@@ -1,4 +1,4 @@
-import { Network } from '@haechi-labs/face-types';
+import { Blockchain, Env, Network } from '@haechi-labs/face-types';
 import { BigNumber, ethers } from 'ethers';
 
 import { ERC20_ABI, ERC721_TRANSFER_ABI, ERC1155_TRANSFER_ABI } from './abi';
@@ -88,4 +88,80 @@ export async function getGasPrice(network: Network): Promise<string> {
   return (
     await new ethers.providers.JsonRpcProvider(getProvider(network)).getGasPrice()
   ).toHexString();
+}
+
+export function getNetworkFromBlockchain(blockchain: Blockchain, env: Env): Network {
+  if (isMainnet(env)) {
+    switch (blockchain) {
+      case Blockchain.ETHEREUM:
+        return Network.ETHEREUM;
+      case Blockchain.POLYGON:
+        return Network.POLYGON;
+      case Blockchain.BNB_SMART_CHAIN:
+        return Network.BNB_SMART_CHAIN;
+      case Blockchain.KLAYTN:
+        return Network.KLAYTN;
+      case Blockchain.SOLANA:
+        return Network.SOLANA;
+      case Blockchain.NEAR:
+        return Network.NEAR;
+      case Blockchain.BORA:
+        return Network.BORA;
+      case Blockchain.APTOS:
+        return Network.APTOS;
+    }
+  } else {
+    switch (blockchain) {
+      case Blockchain.ETHEREUM:
+        return Network.GOERLI;
+      case Blockchain.POLYGON:
+        return Network.MUMBAI;
+      case Blockchain.BNB_SMART_CHAIN:
+        return Network.BNB_SMART_CHAIN_TESTNET;
+      case Blockchain.KLAYTN:
+        return Network.BAOBAB;
+      case Blockchain.SOLANA:
+        return Network.SOLANA_DEVNET;
+      case Blockchain.NEAR:
+        return Network.NEAR_TESTNET;
+      case Blockchain.BORA:
+        return Network.BORA_TESTNET;
+      case Blockchain.APTOS:
+        return Network.APTOS_TESTNET;
+    }
+  }
+  throw new Error('Unsupported blockchain ' + blockchain);
+}
+
+export function isMainnet(env: Env) {
+  switch (env) {
+    case Env.ProdMainnet:
+    case Env.StageMainnet:
+      return true;
+    default:
+      return false;
+  }
+}
+
+export function getEnvFromNetwork(network: Network): Env {
+  if (isMainnetNetwork(network)) {
+    return Env.ProdMainnet;
+  }
+
+  return Env.ProdTest;
+}
+
+export function isMainnetNetwork(network: Network) {
+  switch (network) {
+    case Network.ETHEREUM:
+    case Network.POLYGON:
+    case Network.BNB_SMART_CHAIN:
+    case Network.KLAYTN:
+    case Network.SOLANA:
+    case Network.BORA:
+    case Network.NEAR:
+      return true;
+    default:
+      return false;
+  }
 }

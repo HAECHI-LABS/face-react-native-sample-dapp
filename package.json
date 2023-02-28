@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@haechi-labs/face-react-native-sdk": "^1.6.0",
+    "@haechi-labs/face-react-native-sdk": "file:.yalc/@haechi-labs/face-react-native-sdk",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-device-info": "^10.3.0",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
-    "@haechi-labs/face-types": "^1.6.0",
+    "@haechi-labs/face-types": "^1.9.2",
     "@react-native-community/eslint-config": "^2.0.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^26.0.23",
