@@ -1147,12 +1147,10 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@haechi-labs/face-react-native-sdk@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.6.0.tgz#418de1020ab5964347378c9588875c078bed4bdb"
-  integrity sha512-Ty076KnLG1bjVev6JYrT+YMsRYQioatulEMjL1YYGFRbYyOFrjIut6RX4Az7xeWJTDx92wC75G0tnkvqjGUeDg==
+"@haechi-labs/face-react-native-sdk@file:.yalc/@haechi-labs/face-react-native-sdk":
+  version "1.9.2"
   dependencies:
-    "@haechi-labs/face-types" "^1.8.0"
+    "@haechi-labs/face-types" "^1.9.2"
     "@solana/web3.js" "^1.73.0"
     "@types/uuid" "^8.3.4"
     buffer "^6.0.3"
@@ -1170,14 +1168,10 @@
     ethers "^5.6.8"
     near-api-js "^1.1.0"
 
-"@haechi-labs/face-types@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.8.0.tgz#28c6910a504c61d32b2a9fcb39ffcdd9f1180c41"
-  integrity sha512-oXMJoxl13CISTC6+SMwyLOTBXUxOlm0+32ieUVa1zY8pfCfAg5IJkZ6P2vBulb8tImkYR3kJUSgE/a7cuH/VtA==
-  dependencies:
-    bn.js "^5.2.1"
-    ethers "^5.6.8"
-    near-api-js "^1.1.0"
+"@haechi-labs/face-types@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.9.2.tgz#768516b4723545ffd905cd949ae146e3895827e9"
+  integrity sha512-ZkqE7pwZING656Q1fjSScqgEm1H82V4JoOjQeSy3MJbI4e9o3gm/qFIgDqFxZPIPjVga226F6OVmUI4bii35FA==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
@@ -1671,6 +1665,11 @@
   resolved "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.3.0.tgz"
   integrity sha512-+zDZ20NUnSWghj7Ku5aFphMzuM9JulqCW+aPXT6IfIXFbb8tzYTTOSeRFOtuekJ99ibW2fUCSsjuKNlwDIbHFg==
 
+"@react-native-google-signin/google-signin@^9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-9.0.2.tgz#fd9d0cbb58591265c2ea9404b2d2ea7e514b9ea9"
+  integrity sha512-oTD0ZT6ZSH7CZjM1i6hR/gFAXv9As7nxhN99XGliNxf6SChZcQRwGeaz1DjoYrWExWDVX00EH1Per3dMjhAWkQ==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -1854,6 +1853,13 @@
   version "7.0.11"
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
+
+"@types/node-forge@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@types/node-forge/-/node-forge-1.3.1.tgz#49e44432c306970b4e900c3b214157c480af19fa"
+  integrity sha512-hvQ7Wav8I0j9amPXJtGqI/Yx70zeF62UKlAYq8JPm0nHzjKKzZvo9iR3YI2MiOghZRlOI+tQ2f6D+G6vVf4V2Q==
+  dependencies:
+    "@types/node" "*"
 
 "@types/node@*":
   version "18.11.18"
@@ -6142,6 +6148,11 @@ node-fetch@2, node-fetch@^2.2.0, node-fetch@^2.6.0, node-fetch@^2.6.1:
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
   dependencies:
     whatwg-url "^5.0.0"
+
+node-forge@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.3.1.tgz#be8da2af243b2417d5f646a770663a92b7e9ded3"
+  integrity sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==
 
 node-gyp-build@^4.3.0:
   version "4.6.0"
