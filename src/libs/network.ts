@@ -73,17 +73,17 @@ export function getNetwork(blockchain: Blockchain | null, env: Env) {
         return Network.SOLANA;
     }
   }
-  // if (blockchain == Blockchain.BORA) {
-  //   switch (env) {
-  //     case Env.Local:
-  //     case Env.Dev:
-  //     case Env.StageTest:
-  //     case Env.ProdTest:
-  //       return Network.BORA_TESTNET;
-  //     case Env.StageMainnet:
-  //     case Env.ProdMainnet:
-  //       return Network.BORA;
-  //   }
-  // }
+  if (blockchain == Blockchain.BORA) {
+    switch (env) {
+      case Env.Local:
+      case Env.Dev:
+      case Env.StageTest:
+      case Env.ProdTest:
+        return Network.BORA_TESTNET;
+      case Env.StageMainnet:
+      case Env.ProdMainnet:
+        return Network.BORA;
+    }
+  }
   return null;
 }
