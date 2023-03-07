@@ -1159,15 +1159,6 @@
     process "^0.11.10"
     uuid "^9.0.0"
 
-"@haechi-labs/face-types@1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.8.0.tgz#28c6910a504c61d32b2a9fcb39ffcdd9f1180c41"
-  integrity sha512-oXMJoxl13CISTC6+SMwyLOTBXUxOlm0+32ieUVa1zY8pfCfAg5IJkZ6P2vBulb8tImkYR3kJUSgE/a7cuH/VtA==
-  dependencies:
-    bn.js "^5.2.1"
-    ethers "^5.6.8"
-    near-api-js "^1.1.0"
-
 "@haechi-labs/face-types@^1.9.2":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.9.2.tgz#768516b4723545ffd905cd949ae146e3895827e9"

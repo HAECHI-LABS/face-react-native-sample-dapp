@@ -27,7 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
-    "@haechi-labs/face-types": "1.8.0",
+    "@haechi-labs/face-types": "^1.9.2",
     "@react-native-community/eslint-config": "^2.0.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^26.0.23",
