@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { Text } from 'react-native-ui-lib';
 
-import forge from 'node-forge';
 import Box from './common/Box';
 import Button from './common/Button';
 import { accountAtom, faceAtom, networkAtom, loginStatusAtom } from '../store';
@@ -11,7 +10,7 @@ import { formatPlatformCoin } from '../libs/platformCoin';
 import Message from './common/Message';
 import { getAccountInfo } from '../libs/accountInfo';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { ethers } from 'ethers';
+import { createSignature } from '../libs/encrypt';
 
 const title = 'Login with Face Wallet';
 
@@ -78,28 +77,13 @@ function LoginWithFace() {
     setIsLoggedIn(true);
   }
 
-  function createPemFromApiKey(privateKey: string): string {
-    return `-----BEGIN RSA PRIVATE KEY-----\n${privateKey
-      .replace(/-/g, '+')
-      .replace(/_/g, '/')
-      .replace(/(\S{64}(?!$))/g, '$1\n')}\n-----END RSA PRIVATE KEY-----\n`;
-  }
-
-  function createSignatureForIdToken(idToken: string) {
-    const messageDigest = forge.md.sha256.create();
-    messageDigest.update(idToken, 'utf8');
-    const privateKey = forge.pki.privateKeyFromPem(createPemFromApiKey(PRV_KEY));
-    const arrayBuffer = forge.util.binary.raw.decode(privateKey.sign(messageDigest));
-    return ethers.utils.base64.encode(arrayBuffer);
-  }
-
   async function customTokenLogin() {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 
       if (userInfo.idToken) {
-        const signature = createSignatureForIdToken(userInfo.idToken) as string;
+        const signature = createSignature(userInfo.idToken, PRV_KEY) as string;
         const result = await face?.auth.loginWithIdToken({
           idToken: userInfo.idToken,
           sig: signature,

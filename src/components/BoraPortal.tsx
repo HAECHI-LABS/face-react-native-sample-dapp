@@ -3,8 +3,6 @@ import {
   BoraPortalConnectStatusResponse,
   Network,
 } from '@haechi-labs/face-types';
-import { ethers } from 'ethers';
-import forge from 'node-forge';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -14,6 +12,7 @@ import Button from './common/Button';
 import Message from './common/Message';
 import TextField from './common/TextField';
 import { Text } from 'react-native-ui-lib';
+import { createSignature } from '../libs/encrypt';
 
 const title = 'BoraPortal';
 
@@ -32,22 +31,6 @@ function BoraPortal() {
     }
     setBppUsn(account.user?.faceUserId);
   }, [account]);
-
-  function createPemFromPrivateKey(privateKey: string): string {
-    return `-----BEGIN RSA PRIVATE KEY-----\n${privateKey
-      .replace(/-/g, '+')
-      .replace(/_/g, '/')
-      .replace(/(\S{64}(?!$))/g, '$1\n')}\n-----END RSA PRIVATE KEY-----\n`;
-  }
-
-  function createSignature(rawMessage: string) {
-    const messageDigest = forge.md.sha256.create();
-    messageDigest.update(rawMessage, 'utf8');
-    const privateKey = forge.pki.privateKeyFromPem(createPemFromPrivateKey(prvKey));
-
-    const arrayBuffer = forge.util.binary.raw.decode(privateKey.sign(messageDigest));
-    return ethers.utils.base64.encode(arrayBuffer);
-  }
 
   async function isBoraConnected() {
     try {
@@ -73,11 +56,11 @@ function BoraPortal() {
       const signatureMessage = `${bappUsn}:${account.user?.wallet?.address}`;
       const response = await face?.bora.connect({
         bappUsn,
-        signature: createSignature(signatureMessage),
+        signature: createSignature(signatureMessage, prvKey),
       } as BoraPortalConnectRequest);
       console.group('[ConnectBora]');
       console.log('rawMessage:', signatureMessage);
-      console.log('signature:', createSignature(signatureMessage));
+      console.log('signature:', createSignature(signatureMessage, prvKey));
       console.log('response:', response);
       console.groupEnd();
 
@@ -104,7 +87,7 @@ function BoraPortal() {
       return (
         <Box title={title}>
           <Message type="danger">
-            <Text>To test the BoraPorta API, you must connect to the Bora Testnet.</Text>
+            <Text>To test the BoraPortal API, you must connect to the Bora Testnet.</Text>
           </Message>
         </Box>
       );
