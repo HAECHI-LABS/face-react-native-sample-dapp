@@ -36,9 +36,9 @@ export function networkToBlockchain(network: Network): Blockchain {
     case Network.SOLANA:
     case Network.SOLANA_DEVNET:
       return Blockchain.SOLANA;
-    // case Network.BORA:
-    // case Network.BORA_TESTNET:
-    //   return Blockchain.BORA;
+    case Network.BORA:
+    case Network.BORA_TESTNET:
+      return Blockchain.BORA;
     case Network.NEAR:
     case Network.NEAR_TESTNET:
       return Blockchain.NEAR;

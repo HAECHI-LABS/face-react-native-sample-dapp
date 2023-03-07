@@ -10,6 +10,7 @@ import TransactionErc721 from './src/components/TransactionErc721';
 import TransactionErc1155 from './src/components/TransactionErc1155';
 import SignMessage from './src/components/SignMessage';
 import WalletHome from './src/components/WalletHome';
+import BoraPortal from './src/components/BoraPortal';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <ConnectNetwork />
           <LoginWithFace />
           <WalletHome />
+          <BoraPortal />
           <TransactionPlatformCoin />
           <TransactionErc20 />
           <TransactionErc721 />
