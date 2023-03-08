@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "40429402374",
+    "project_id": "rn-face-sample",
+    "storage_bucket": "rn-face-sample.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40429402374:android:3b25a32b1bfd736b0ec687",
+        "android_client_info": {
+          "package_name": "xyz.facewallet.reactnativedev.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40429402374-65ar6929seo5gkpflpuvlr8oioe5t8u1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.facewallet.reactnativedev.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "40429402374-fe00il2cm311b4qbk76k2qdep4v43tti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxTgLYNUvY-T0E58jQpLcKUUbBWCuJslw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40429402374-49tfeomknsl2d6bef4ia2h1j3pklpm55.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "40429402374-lj64krlv5rrjqu662uagd6qk6mf8oq0j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "xyz.facewallet.reactnativedev.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

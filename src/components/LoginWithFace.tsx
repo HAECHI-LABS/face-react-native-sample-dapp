@@ -16,6 +16,7 @@ const title = 'Login with Face Wallet';
 
 GoogleSignin.configure({
   webClientId: '40429402374-fe00il2cm311b4qbk76k2qdep4v43tti.apps.googleusercontent.com',
+  offlineAccess: true,
 });
 
 const PRV_KEY =
