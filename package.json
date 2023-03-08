@@ -1,6 +1,6 @@
 {
   "name": "facereactnativesampledapp",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "android": "RCT_METRO_PORT=8088 react-native run-android",
