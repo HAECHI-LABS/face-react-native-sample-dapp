@@ -1147,8 +1147,10 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@haechi-labs/face-react-native-sdk@file:.yalc/@haechi-labs/face-react-native-sdk":
-  version "1.9.2"
+"@haechi-labs/face-react-native-sdk@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.7.0.tgz#640d84a1c3e4e93945bd6204292b94eca1e04370"
+  integrity sha512-/9Akrf3CNjsA2N6KsTNhGzGVoI/sSNoUX82v3QzOgFrPiXC8isJiFDLC7//of1tXXskYTeCp63u8bHjfANhCcQ==
   dependencies:
     "@haechi-labs/face-types" "^1.9.2"
     "@solana/web3.js" "^1.73.0"
