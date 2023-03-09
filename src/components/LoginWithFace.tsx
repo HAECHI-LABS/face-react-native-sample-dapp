@@ -2,6 +2,7 @@ import { LoginProviderType } from '@haechi-labs/face-types';
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { Text } from 'react-native-ui-lib';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 
 import Box from './common/Box';
 import Button from './common/Button';
@@ -11,6 +12,7 @@ import Message from './common/Message';
 import { getAccountInfo } from '../libs/accountInfo';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { createSignature } from '../libs/encrypt';
+import qs from 'qs';
 
 const title = 'Login with Face Wallet';
 
@@ -78,26 +80,66 @@ function LoginWithFace() {
     setIsLoggedIn(true);
   }
 
-  async function customTokenLogin() {
+  async function customTokenLogin(provider: LoginProviderType) {
     try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
+      let idToken;
+      switch (provider) {
+        case 'google.com': {
+          await GoogleSignin.hasPlayServices();
+          const userInfo = await GoogleSignin.signIn();
 
-      if (userInfo.idToken) {
-        const signature = createSignature(userInfo.idToken, PRV_KEY) as string;
-        const result = await face?.auth.loginWithIdToken({
-          idToken: userInfo.idToken,
-          sig: signature,
-        });
-
-        if (result === null) {
-          console.log('Login is canceled');
-          return;
+          if (userInfo.idToken) {
+            idToken = userInfo.idToken;
+          }
+          break;
         }
-
-        await getAccountInfoCallback();
-        setIsLoggedIn(true);
+        case 'apple.com': {
+          const result = await InAppBrowser.openAuth(
+            `https://appleid.apple.com/auth/authorize?client_id=xyz.facewallet.3rd&redirect_uri=https%3A%2F%2Fus-central1-prj-d-face.cloudfunctions.net%2FexternalSocialLogin&response_type=code%20id_token&scope=name%20email&response_mode=form_post&state=apple.com%7CRN`,
+            'facewallet://facewallet'
+          );
+          if (result.type !== 'success') throw new Error('Failed auth');
+          idToken = qs.parse(result.url.split('?').slice(1).join('')).idToken as string;
+          console.log({ idToken });
+          break;
+        }
+        case 'kakao.com': {
+          const kakaoQueryStr = qs.stringify({
+            client_id: '1d81f69a60f238d6ec4679e0fe543777',
+            redirect_uri: 'https://us-central1-prj-d-face.cloudfunctions.net/externalSocialLogin',
+            response_type: 'code',
+            scope: 'openid',
+            prompt: 'login',
+            state: 'kakao.com|RN',
+            nonce:
+              Math.random().toString(36).substring(2, 15) +
+              Math.random().toString(36).substring(2, 15),
+          });
+          const result = await InAppBrowser.openAuth(
+            `https://kauth.kakao.com/oauth/authorize?${kakaoQueryStr}`,
+            'facewallet://facewallet'
+          );
+          if (result.type !== 'success') throw new Error('Failed auth');
+          idToken = qs.parse(result.url.split('?').slice(1).join('')).idToken as string;
+          console.log({ idToken });
+          break;
+        }
       }
+
+      if (!idToken) throw new Error('Failed to get idToken');
+      const signature = createSignature(idToken, PRV_KEY) as string;
+      const result = await face?.auth.loginWithIdToken({
+        idToken: idToken,
+        sig: signature,
+      });
+
+      if (result === null) {
+        console.log('Login is canceled');
+        return;
+      }
+
+      await getAccountInfoCallback();
+      setIsLoggedIn(true);
     } catch (error) {
       console.log({ error });
     }
@@ -136,7 +178,12 @@ function LoginWithFace() {
           <Button label="Google login" onPress={() => socialLogin('google.com')} />
           <Button label="Apple login" onPress={() => socialLogin('apple.com')} />
           <Button label="Facebook login" onPress={() => socialLogin('facebook.com')} />
-          <Button label="LoginWithIdToken (Google)" onPress={() => customTokenLogin()} />
+          <Button
+            label="LoginWithIdToken (Google)"
+            onPress={() => customTokenLogin('google.com')}
+          />
+          <Button label="LoginWithIdToken (Apple)" onPress={() => customTokenLogin('apple.com')} />
+          <Button label="LoginWithIdToken (Kakao)" onPress={() => customTokenLogin('kakao.com')} />
           <Button label="Reset Face SDK" onPress={resetFaceSDK} />
         </>
       )}
