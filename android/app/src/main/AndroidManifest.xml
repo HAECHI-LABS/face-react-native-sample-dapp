@@ -27,6 +27,7 @@
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="facewebview" android:host="facewebview" />
+            <data android:scheme="facewallet" android:host="facewallet" />
         </intent-filter>
       </activity>
     </application>
