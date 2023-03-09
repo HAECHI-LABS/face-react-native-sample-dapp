@@ -27,6 +27,7 @@ const blockchainList = [
   Blockchain.POLYGON,
   Blockchain.BNB_SMART_CHAIN,
   Blockchain.KLAYTN,
+  Blockchain.BORA,
   // Blockchain.NEAR,
   // Blockchain.SOLANA,
 ];
