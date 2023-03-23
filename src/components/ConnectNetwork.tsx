@@ -6,12 +6,13 @@ import Picker from './common/Picker';
 import Button from './common/Button';
 import { faceAtom, networkAtom } from '../store';
 import { Face } from '@haechi-labs/face-react-native-sdk';
-import { Blockchain, Env } from '@haechi-labs/face-types';
+import { Blockchain, Env, NetworkChainIdMap, Network } from '@haechi-labs/face-types';
 import { API_KEY } from '../contants/apiKey';
 import { getNetwork } from '../libs/network';
 import TextField from './common/TextField';
 import Message from './common/Message';
 import { Platform } from 'react-native';
+import Hr from './common/Hr';
 
 const envList = [
   Env.Local,
@@ -40,78 +41,71 @@ function ConnectNetwork() {
   const [blockchain, setBlockchain] = useState<Blockchain>(Blockchain.ETHEREUM);
   const [env, setEnv] = useState<Env>(envList[1]);
   const [apiKey, setApiKey] = useState<string>(API_KEY);
+  const [chainId, setChainId] = useState('');
+
+  const isFaceInitialized = !!face;
 
   const connectNetwork = () => {
     const network = getNetwork(blockchain, env);
-
     setNetwork(network);
 
     try {
-      const face = new Face({
-        apiKey,
-        network,
-        env,
-        scheme: 'facewebview',
-        ...(env === Env.Local
-          ? { iframeUrl: Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333' }
-          : {}),
-      } as never);
-      setFace(face);
+      if (isFaceInitialized) {
+        face?.switchNetwork(network as Network);
+      } else {
+        const face = new Face({
+          apiKey,
+          network,
+          env,
+          scheme: 'facewebview',
+          ...(env === Env.Local
+            ? {
+                iframeUrl: Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333',
+              }
+            : {}),
+        } as never);
+        setFace(face);
+      }
     } catch (e) {
       console.error('Error occurred', e);
     }
   };
 
-  const switchNetwork = () => {
-    const network = getNetwork(blockchain, env);
-
-    if (!network) {
-      return;
-    }
-
-    setNetwork(network);
-
+  const connectWithChainId = () => {
+    const _chainId = Number(chainId);
+    setNetwork(NetworkChainIdMap[_chainId] as Network);
     try {
-      face?.switchNetwork(network);
+      if (isFaceInitialized) {
+        face.switchNetwork(_chainId);
+      } else {
+        const face = new Face({
+          apiKey: apiKey,
+          network: _chainId,
+          env,
+          scheme: 'facewebview',
+          ...(env === Env.Local
+            ? {
+                iframeUrl: Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333',
+              }
+            : {}),
+        } as never);
+        setFace(face);
+      }
     } catch (e) {
-      console.error('Error occurred', e);
+      console.error(e);
     }
   };
 
-  if (face) {
-    return (
-      <Box title={title}>
+  const action = isFaceInitialized ? 'Switch' : 'Connect';
+  return (
+    <Box title={title}>
+      {isFaceInitialized && (
         <Message type="info">
           <Text text80BO>Connected to {network}</Text>
           <Text>Env: {env}</Text>
-          <Text>Blockchain: {blockchain}</Text>
         </Message>
+      )}
 
-        <Picker
-          title="Env"
-          value={env}
-          items={envList}
-          onChange={(value) => {
-            setEnv(value as Env);
-          }}
-        />
-        <Picker
-          title="Blockchain"
-          value={blockchain}
-          items={blockchainList}
-          onChange={(value) => {
-            setBlockchain(value as Blockchain);
-          }}
-        />
-        <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
-
-        <Button label="Switch network" onPress={switchNetwork} />
-      </Box>
-    );
-  }
-
-  return (
-    <Box title={title}>
       <Picker
         title="Env"
         value={env}
@@ -129,8 +123,12 @@ function ConnectNetwork() {
         }}
       />
       <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
+      <Button label={`${action} network`} onPress={connectNetwork} />
 
-      <Button label="Connect network" onPress={connectNetwork} />
+      <Hr />
+
+      <TextField label={'Chain ID'} value={chainId} onChange={setChainId} />
+      <Button label={`${action} network with Chain ID`} onPress={connectWithChainId} />
     </Box>
   );
 }
