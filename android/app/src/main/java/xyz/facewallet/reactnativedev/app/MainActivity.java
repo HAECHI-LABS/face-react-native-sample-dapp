@@ -1,5 +1,7 @@
 package xyz.facewallet.reactnativedev.app;
 
+import android.os.Bundle;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -21,8 +23,15 @@ public class MainActivity extends ReactActivity {
    * (Paper).
    */
   @Override
-  protected ReactActivityDelegate createReactActivityDelegate() {
-    return new MainActivityDelegate(this, getMainComponentName());
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
+    ((MainApplication) getApplication()).addActivityToStack(this.getClass());
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    ((MainApplication) getApplication()).removeActivityFromStack(this.getClass());
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
