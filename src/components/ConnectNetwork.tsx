@@ -42,12 +42,22 @@ function ConnectNetwork() {
   const [env, setEnv] = useState<Env>(envList[1]);
   const [apiKey, setApiKey] = useState<string>(API_KEY);
   const [chainId, setChainId] = useState('');
+  const [multiStageId, setMultiStageId] = useState('');
 
   const isFaceInitialized = !!face;
 
   const connectNetwork = () => {
     const network = getNetwork(blockchain, env);
     setNetwork(network);
+
+    let iframeUrl;
+    if (env === Env.Local) {
+      iframeUrl = Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333';
+    } else if (env === Env.StageTest || env === Env.StageMainnet) {
+      iframeUrl = multiStageId
+        ? `https://face-iframe-${multiStageId}.facewallet-test.xyz/`
+        : undefined;
+    }
 
     try {
       if (isFaceInitialized) {
@@ -58,11 +68,7 @@ function ConnectNetwork() {
           network,
           env,
           scheme: 'facewebview',
-          ...(env === Env.Local
-            ? {
-                iframeUrl: Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333',
-              }
-            : {}),
+          iframeUrl,
         } as never);
         setFace(face);
       }
@@ -122,6 +128,7 @@ function ConnectNetwork() {
           setBlockchain(value as Blockchain);
         }}
       />
+      <TextField label={'MultiStage ID'} value={multiStageId} onChange={setMultiStageId} />
       <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
       <Button label={`${action} network`} onPress={connectNetwork} />
 
