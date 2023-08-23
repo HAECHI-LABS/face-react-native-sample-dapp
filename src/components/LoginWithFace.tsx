@@ -167,6 +167,7 @@ function LoginWithFace() {
               <Text text80BO>Account Info</Text>
               <Text>Address: {account.address}</Text>
               <Text>Balance: {formatPlatformCoin(account.balance, network!)}</Text>
+              <Text>UserVerificationToken: {account.user.userVerificationToken}</Text>
             </Message>
           )}
           <Button label="Get account info" onPress={getAccountInfoCallback} />
