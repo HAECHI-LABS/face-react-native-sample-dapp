@@ -164,6 +164,7 @@ function LoginWithFace() {
           {account.balance && <Text />}
           {account.balance && (
             <Message type="info">
+              <Text accessibilityLabel={'Login result'}>Login Success</Text>
               <Text text80BO>Account Info</Text>
               <Text>Address: {account.address}</Text>
               <Text>Balance: {formatPlatformCoin(account.balance, network!)}</Text>
@@ -174,7 +175,7 @@ function LoginWithFace() {
         </>
       ) : (
         <>
-          <Button label="Log in with Face wallet" onPress={login} />
+          <Button label="Log in with Face wallet" onPress={login} accessibilityLabel={"open login modal"} />
           <Button label="Google login" onPress={() => socialLogin('google.com')} />
           <Button label="Apple login" onPress={() => socialLogin('apple.com')} />
           <Button label="Facebook login" onPress={() => socialLogin('facebook.com')} />
@@ -185,6 +186,7 @@ function LoginWithFace() {
           <Button label="LoginWithIdToken (Apple)" onPress={() => customTokenLogin('apple.com')} />
           <Button label="LoginWithIdToken (Kakao)" onPress={() => customTokenLogin('kakao.com')} />
           <Button label="Reset Face SDK" onPress={resetFaceSDK} />
+          <Button accessibilityLabel="Log out" label="Log out" onPress={logout} />
         </>
       )}
     </Box>

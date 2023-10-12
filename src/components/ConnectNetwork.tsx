@@ -123,7 +123,8 @@ function ConnectNetwork() {
         }}
       />
       <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
-      <Button label={`${action} network`} onPress={connectNetwork} />
+      <Button label={`${action} network`} onPress={connectNetwork}
+              accessibilityLabel={`${action} network`} />
 
       <Hr />
 
