@@ -38,9 +38,8 @@ $ npx react-native run-ios
    - Ref: https://reactnative.dev/docs/environment-setup#installing-dependencies
 2. Execute the sample dapp
 ```shell
-$ npx react-native run-ios
+$ npx react-native run-android
 ```
-
 
 ### Run on device
 - https://reactnative.dev/docs/running-on-device
