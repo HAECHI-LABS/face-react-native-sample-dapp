@@ -1,29 +1,33 @@
 import {
   BoraPortalConnectRequest,
   BoraPortalConnectStatusResponse,
+  LoginProviderType,
   Network,
 } from '@haechi-labs/face-types';
-import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useCallback, useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { privateKeyAtom, accountAtom, faceAtom, networkAtom } from '../store';
+import { Text } from 'react-native-ui-lib';
+import { getAccountInfo } from '../libs/accountInfo';
+import { getCustomLoginCredential } from '../libs/auth';
+import { createSignature } from '../libs/encrypt';
+import { accountAtom, faceAtom, loginStatusAtom, networkAtom, privateKeyAtom } from '../store';
 import Box from './common/Box';
 import Button from './common/Button';
 import Message from './common/Message';
 import TextField from './common/TextField';
-import { Text } from 'react-native-ui-lib';
-import { createSignature } from '../libs/encrypt';
 
 const title = 'BoraPortal';
 
 function BoraPortal() {
   const face = useRecoilValue(faceAtom);
-  const account = useRecoilValue(accountAtom);
+  const [account, setAccount] = useRecoilState(accountAtom);
   const network = useRecoilValue(networkAtom);
   const prvKey = useRecoilValue(privateKeyAtom);
   const [connectInfo, setConnectInfo] = useState<BoraPortalConnectStatusResponse>();
   const [error, setError] = useState<string | null>(null);
   const [bappUsn, setBppUsn] = useState<string | null>(null);
+  const setIsLoggedIn = useSetRecoilState(loginStatusAtom);
 
   useEffect(() => {
     if (account == null || account.user?.faceUserId == null) {
@@ -74,6 +78,94 @@ function BoraPortal() {
     }
   }
 
+  const getAccountInfoCallback = useCallback(async () => {
+    if (!face) {
+      return null;
+    }
+
+    const { address, balance, user } = await getAccountInfo(face, network!);
+
+    console.group('[Account Information]');
+    console.log('Balance:', balance);
+    console.log('Address:', address);
+    console.log('Current user:', user);
+    console.groupEnd();
+
+    setAccount({ address, balance, user });
+  }, [face, network, setAccount]);
+
+  async function boraLogin() {
+    if (!bappUsn) {
+      console.error('bappUsn을 입력해주세요.');
+      return;
+    }
+    try {
+      const signatureMessage = `boraconnect:${bappUsn}`;
+      const res = await face?.auth.boraLogin({
+        bappUsn,
+        signature: createSignature(signatureMessage, prvKey),
+      });
+      // setSession((res as any).session);
+      setIsLoggedIn(true);
+      getAccountInfoCallback();
+      console.log('Login response:', res);
+    } catch (e) {
+      if (e.isFaceError && e.code === 4001) {
+        console.log('User rejected!');
+        return;
+      }
+      throw e;
+    }
+  }
+
+  async function boraDirectSocialLogin(provider: LoginProviderType) {
+    try {
+      if (!bappUsn) {
+        console.error('bappUsn을 입력해주세요.');
+        return;
+      }
+      const signatureMessage = `boraconnect:${bappUsn}`;
+      const res = await face?.auth.boraDirectSocialLogin(
+        {
+          bappUsn,
+          signature: createSignature(signatureMessage, prvKey),
+        },
+        provider
+      );
+      console.log('Social Login response:', res);
+      setIsLoggedIn(true);
+      getAccountInfoCallback();
+    } catch (e) {
+      if (e.isFaceError && e.code === 4001) {
+        console.log('User rejected!');
+        return;
+      }
+      throw e;
+    }
+  }
+
+  async function boraLoginWithIdToken(provider: LoginProviderType) {
+    if (!bappUsn) {
+      console.error('bappUsn을 입력해주세요.');
+      return;
+    }
+    const signatureMessage = `boraconnect:${bappUsn}`;
+    const credential = await getCustomLoginCredential(provider);
+    if (credential) {
+      const boraRequest = {
+        bappUsn,
+        signature: createSignature(signatureMessage, prvKey),
+      };
+      const response = await face?.auth.boraLoginWithIdToken(boraRequest, {
+        idToken: credential.idToken,
+        sig: credential.signature,
+      });
+      console.log('Face Wallet Login Succeed:', response);
+      setIsLoggedIn(true);
+      getAccountInfoCallback();
+    }
+  }
+
   if (!face) {
     return (
       <Box title={title}>
@@ -92,15 +184,6 @@ function BoraPortal() {
         </Box>
       );
     }
-  }
-  if (!account.balance || !account.address) {
-    return (
-      <Box title={title}>
-        <Message type="danger">
-          <Text>You must log in and get account first.</Text>
-        </Message>
-      </Box>
-    );
   }
 
   return (
@@ -127,7 +210,16 @@ function BoraPortal() {
           setBppUsn(address);
         }}
       />
-      <Button label="isConnected" onPress={() => isBoraConnected()} />
+      <Button label="[Bora] login" onPress={() => boraLogin()} />
+      <Button
+        label="[Bora] direct social login (google.com)"
+        onPress={() => boraDirectSocialLogin('google.com')}
+      />
+      <Button
+        label="[Bora] login with id token (google.com)"
+        onPress={() => boraLoginWithIdToken('google.com')}
+      />
+      <Button label="isBoraConnected" onPress={() => isBoraConnected()} />
       <Button label="Connect" onPress={() => connectBora()} />
     </Box>
   );
