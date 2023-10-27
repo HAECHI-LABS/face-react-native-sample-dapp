@@ -96,7 +96,7 @@ function BoraPortal() {
 
   async function boraLogin() {
     if (!bappUsn) {
-      console.error('bappUsn을 입력해주세요.');
+      console.error('Please enter bappUsn.');
       return;
     }
     try {
@@ -121,7 +121,7 @@ function BoraPortal() {
   async function boraDirectSocialLogin(provider: LoginProviderType) {
     try {
       if (!bappUsn) {
-        console.error('bappUsn을 입력해주세요.');
+        console.error('Please enter bappUsn.');
         return;
       }
       const signatureMessage = `boraconnect:${bappUsn}`;
@@ -146,7 +146,7 @@ function BoraPortal() {
 
   async function boraLoginWithIdToken(provider: LoginProviderType) {
     if (!bappUsn) {
-      console.error('bappUsn을 입력해주세요.');
+      console.error('Please enter bappUsn.');
       return;
     }
     const signatureMessage = `boraconnect:${bappUsn}`;
