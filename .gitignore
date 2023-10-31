@@ -70,3 +70,6 @@ buck-out/
 # Android
 android/caches
 android/wrapper/dists
+
+# vscode
+.vscode
