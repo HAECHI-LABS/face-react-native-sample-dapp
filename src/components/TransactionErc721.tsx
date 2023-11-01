@@ -91,8 +91,9 @@ function TransactionErc721() {
       const receipt = await transactionResponse.wait();
       console.log('Transaction receipt', receipt);
       console.groupEnd();
-    } catch (err) {
-      console.log('Canceled sendTransaction', err);
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 
