@@ -16,6 +16,7 @@ import Box from './common/Box';
 import Button from './common/Button';
 import Message from './common/Message';
 import TextField from './common/TextField';
+import { Alert } from 'react-native';
 
 const title = 'BoraPortal';
 
@@ -51,6 +52,7 @@ function BoraPortal() {
       setConnectInfo(undefined);
       setError(e.message);
       console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 
@@ -75,6 +77,7 @@ function BoraPortal() {
       setConnectInfo(undefined);
       setError(e.message);
       console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 
@@ -110,11 +113,8 @@ function BoraPortal() {
       getAccountInfoCallback();
       console.log('Login response:', res);
     } catch (e) {
-      if (e.isFaceError && e.code === 4001) {
-        console.log('User rejected!');
-        return;
-      }
-      throw e;
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 
@@ -136,33 +136,35 @@ function BoraPortal() {
       setIsLoggedIn(true);
       getAccountInfoCallback();
     } catch (e) {
-      if (e.isFaceError && e.code === 4001) {
-        console.log('User rejected!');
-        return;
-      }
-      throw e;
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 
   async function boraLoginWithIdToken(provider: LoginProviderType) {
-    if (!bappUsn) {
-      console.error('Please enter bappUsn.');
-      return;
-    }
-    const signatureMessage = `boraconnect:${bappUsn}`;
-    const credential = await getCustomLoginCredential(provider);
-    if (credential) {
-      const boraRequest = {
-        bappUsn,
-        signature: createSignature(signatureMessage, prvKey),
-      };
-      const response = await face?.auth.boraLoginWithIdToken(boraRequest, {
-        idToken: credential.idToken,
-        sig: credential.signature,
-      });
-      console.log('Face Wallet Login Succeed:', response);
-      setIsLoggedIn(true);
-      getAccountInfoCallback();
+    try {
+      if (!bappUsn) {
+        console.error('Please enter bappUsn.');
+        return;
+      }
+      const signatureMessage = `boraconnect:${bappUsn}`;
+      const credential = await getCustomLoginCredential(provider);
+      if (credential) {
+        const boraRequest = {
+          bappUsn,
+          signature: createSignature(signatureMessage, prvKey),
+        };
+        const response = await face?.auth.boraLoginWithIdToken(boraRequest, {
+          idToken: credential.idToken,
+          sig: credential.signature,
+        });
+        console.log('Face Wallet Login Succeed:', response);
+        setIsLoggedIn(true);
+        getAccountInfoCallback();
+      }
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 

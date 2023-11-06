@@ -8,7 +8,7 @@ import Button from './common/Button';
 import TextField from './common/TextField';
 import { accountAtom, faceAtom, networkAtom } from '../store';
 import { getExplorerUrl } from '../libs/utils';
-import { Linking } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import Message from './common/Message';
 
 const title = 'Platform Coin Transaction';
@@ -50,8 +50,9 @@ function TransactionPlatformCoin() {
       const receipt = await transactionResponse.wait();
       console.log('Transaction receipt', receipt);
       console.groupEnd();
-    } catch (err) {
-      console.log('Canceled sendTransaction', err);
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 

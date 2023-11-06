@@ -1,5 +1,5 @@
 import { LoginProviderType } from '@haechi-labs/face-types';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Text } from 'react-native-ui-lib';
 import { useRecoilState } from 'recoil';
 
@@ -11,6 +11,7 @@ import { accountAtom, faceAtom, loginStatusAtom, networkAtom } from '../store';
 import Box from './common/Box';
 import Button from './common/Button';
 import Message from './common/Message';
+import { Alert } from 'react-native';
 
 const title = 'Login with Face Wallet';
 
@@ -43,20 +44,25 @@ function LoginWithFace() {
 
   const loginWithCustomToken = useCallback(
     async (provider: LoginProviderType) => {
-      const credential = await getCustomLoginCredential(provider);
-      if (!credential) return;
-      const result = await face?.auth.loginWithIdToken({
-        idToken: credential.idToken,
-        sig: credential.signature,
-      });
+      try {
+        const credential = await getCustomLoginCredential(provider);
+        if (!credential) return;
+        const result = await face?.auth.loginWithIdToken({
+          idToken: credential.idToken,
+          sig: credential.signature,
+        });
 
-      if (result === null) {
-        console.log('Login is canceled');
-        return;
+        if (result === null) {
+          console.log('Login is canceled');
+          return;
+        }
+
+        await getAccountInfoCallback();
+        setIsLoggedIn(true);
+      } catch (e) {
+        console.error(e);
+        Alert.alert('Error', e.message);
       }
-
-      await getAccountInfoCallback();
-      setIsLoggedIn(true);
     },
     [face?.auth, getAccountInfoCallback, setIsLoggedIn]
   );
@@ -71,35 +77,50 @@ function LoginWithFace() {
     );
   }
 
-  async function login() {
-    const result = await face?.auth.login();
+  const login = async () => {
+    try {
+      const result = await face?.auth.login();
 
-    if (result === null) {
-      console.log('Login is canceled');
-      return;
+      if (result === null) {
+        console.log('Login is canceled');
+        return;
+      }
+
+      await getAccountInfoCallback();
+      setIsLoggedIn(true);
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
-
-    await getAccountInfoCallback();
-    setIsLoggedIn(true);
-  }
+  };
 
   async function socialLogin(provider: LoginProviderType) {
-    const result = await face?.auth.directSocialLogin(provider);
+    try {
+      const result = await face?.auth.directSocialLogin(provider);
 
-    if (result === null) {
-      console.log('Login is canceled');
-      return;
+      if (result === null) {
+        console.log('Login is canceled');
+        return;
+      }
+
+      await getAccountInfoCallback();
+      setIsLoggedIn(true);
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
-
-    await getAccountInfoCallback();
-    setIsLoggedIn(true);
   }
 
   async function logout() {
-    await face?.auth.logout();
-    setIsLoggedIn(false);
-    setAccount({});
-    resetFaceSDK();
+    try {
+      await face?.auth.logout();
+      setIsLoggedIn(false);
+      setAccount({});
+      resetFaceSDK();
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
+    }
   }
 
   function resetFaceSDK() {

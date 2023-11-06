@@ -124,25 +124,28 @@ function TransactionErc20() {
       const receipt = await transactionResponse.wait();
       console.log('Transaction receipt', receipt);
       console.groupEnd();
-    } catch (err) {
-      if (err.code === 'TRANSACTION_REJECTED') {
-        console.log('Canceled sendTransaction', err);
-      }
-      throw err;
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   }
 
   async function getBalance() {
-    if (!contractAddress) {
-      alert('Please enter contract address');
-      return;
+    try {
+      if (!contractAddress) {
+        alert('Please enter contract address');
+        return;
+      }
+
+      const provider = new providers.Web3Provider(face!.getEthLikeProvider(), 'any');
+      const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
+      const balance = await contract.balanceOf(account.address);
+
+      setBalance(utils.formatUnits(balance));
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
-
-    const provider = new providers.Web3Provider(face!.getEthLikeProvider(), 'any');
-    const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
-    const balance = await contract.balanceOf(account.address);
-
-    setBalance(utils.formatUnits(balance));
   }
 
   if (!face) {
