@@ -21,7 +21,7 @@ export const erc20Decimal18ContractAddressMap: {
 } = {
   [Network.ETHEREUM]: '0x8A904F0Fb443D62B6A2835483b087aBECF93a137',
   [Network.ROPSTEN]: '',
-  [Network.GOERLI]: '0xB112d79fc314E1F6901984F0b4fA7680057BFB63',
+  [Network.SEPOLIA]: '0xfCe04dd232006d0da001F6D54Bb5a7fC969dBc08',
   [Network.POLYGON]: '0xfce04dd232006d0da001f6d54bb5a7fc969dbc08',
   [Network.MUMBAI]: '0xfce04dd232006d0da001f6d54bb5a7fc969dbc08',
   [Network.BNB_SMART_CHAIN]: '0xab3e0c68e867f1c81a6660960fdfcf53402b33bf',
@@ -41,7 +41,7 @@ export const erc20Decimal6ContractAddressMap: {
 } = {
   [Network.ETHEREUM]: '',
   [Network.ROPSTEN]: '',
-  [Network.GOERLI]: '0xE54b3408C4c8C034e700A8af0Cbc8c9622037eC6',
+  [Network.SEPOLIA]: '0xb5567463c35dE682072A669425d6776B178Be3E4',
   [Network.POLYGON]: '',
   [Network.MUMBAI]: '0xDF152758ce04EcEdfD9642c42b9Ce3090B68Ac2D',
   [Network.BNB_SMART_CHAIN]: '0xe63c2f4bdd0df2b18b0a4e0210d4b1e95a23dff9',

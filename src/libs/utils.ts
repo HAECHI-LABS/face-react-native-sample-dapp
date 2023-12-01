@@ -33,7 +33,7 @@ export function getExplorerUrl(network: Network, transactionHash: string): strin
   const explorerMap: { [key: string]: string } = {
     [Network.ETHEREUM]: `https://etherscan.io/tx/${transactionHash}`,
     [Network.ROPSTEN]: `https://ropsten.etherscan.io/tx/${transactionHash}`,
-    [Network.GOERLI]: `https://goerli.etherscan.io/tx/${transactionHash}`,
+    [Network.SEPOLIA]: `https://sepolia.etherscan.io/tx/${transactionHash}`,
     [Network.POLYGON]: `https://polygonscan.com/tx/${transactionHash}`,
     [Network.MUMBAI]: `https://mumbai.polygonscan.com/tx/${transactionHash}`,
     [Network.BNB_SMART_CHAIN]: `https://bscscan.com/tx/${transactionHash}`,
@@ -55,8 +55,8 @@ export function getProvider(network: Network) {
   switch (network) {
     case Network.ROPSTEN:
       return 'https://eth-ropsten.alchemyapi.io/v2/UghLajTzDNBAO9EByRXWmIqduze2_jJ2';
-    case Network.GOERLI:
-      return 'https://goerli.infura.io/v3/ac003ee08b5644ce9d2bc7779de3a43b';
+    case Network.SEPOLIA:
+      return 'https://rpc.sepolia.org';
     case Network.ETHEREUM:
       return 'https://mainnet.infura.io/v3/';
     case Network.MUMBAI:
@@ -71,10 +71,10 @@ export function getProvider(network: Network) {
       return 'https://public-node-api.klaytnapi.com/v1/cypress';
     case Network.BAOBAB:
       return 'https://api.baobab.klaytn.net:8651/';
-      // case Network.BORA:
-      //   return 'https://public-node.api.boraportal.io/bora/mainnet';
-      // case Network.BORA_TESTNET:
-      return 'https://public-node.api.boraportal.io/bora/testnet';
+    // case Network.BORA:
+    //   return 'https://public-node.api.boraportal.io/bora/mainnet';
+    // case Network.BORA_TESTNET:
+    //   return 'https://public-node.api.boraportal.io/bora/testnet';
     case Network.SOLANA_DEVNET:
       return 'https://api.devnet.solana.com';
     case Network.SOLANA:
@@ -113,7 +113,7 @@ export function getNetworkFromBlockchain(blockchain: Blockchain, env: Env): Netw
   } else {
     switch (blockchain) {
       case Blockchain.ETHEREUM:
-        return Network.GOERLI;
+        return Network.SEPOLIA;
       case Blockchain.POLYGON:
         return Network.MUMBAI;
       case Blockchain.BNB_SMART_CHAIN:

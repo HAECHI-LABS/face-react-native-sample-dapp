@@ -7,7 +7,7 @@ export function getNetwork(blockchain: Blockchain | null, env: Env) {
       case Env.Dev:
       case Env.StageTest:
       case Env.ProdTest:
-        return Network.GOERLI;
+        return Network.SEPOLIA;
       case Env.StageMainnet:
       case Env.ProdMainnet:
         return Network.ETHEREUM;
