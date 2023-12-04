@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@haechi-labs/face-react-native-sdk": "^1.7.7",
+    "@haechi-labs/face-react-native-sdk": "^1.7.9",
     "@react-native-google-signin/google-signin": "^9.0.2",
     "ethers": "^5.6.8",
     "qs": "^6.11.1",
