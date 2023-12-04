@@ -1147,6 +1147,7 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
+
 "@haechi-labs/face-react-native-sdk@^1.7.7":
   version "1.7.6"
   resolved "https://registry.yarnpkg.com/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.7.6.tgz#2b18604dec25ac1aed88f9f6c542e72ee883b618"
