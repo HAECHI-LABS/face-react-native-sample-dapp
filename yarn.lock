@@ -1155,7 +1155,7 @@
 
 "@haechi-labs/face-types@^1.12.2":
   version "1.12.2"
-  resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.12.2.tgz#b1cd984ded6970faad0cae3b3ca0444f62a51fe2"
+  resolved "https://registry.npmjs.org/@haechi-labs/face-types/-/face-types-1.12.2.tgz"
   integrity sha512-ObkQE30iSIwBXBo77c5Da4cw7Az7doKpf/xKWQUMFYHFjU4+Ia/aDh0iNn9QlA8GW6GFITMzbffTqegEFb/qTA==
 
 "@hapi/hoek@^9.0.0":
