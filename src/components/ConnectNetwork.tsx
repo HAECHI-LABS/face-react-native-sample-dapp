@@ -11,7 +11,7 @@ import { API_KEY } from '../contants/apiKey';
 import { getNetwork } from '../libs/network';
 import TextField from './common/TextField';
 import Message from './common/Message';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import Hr from './common/Hr';
 
 const envList = [
@@ -73,6 +73,7 @@ function ConnectNetwork() {
         setFace(face);
       }
     } catch (e) {
+      Alert.alert('Error', e.message);
       console.error('Error occurred', e);
     }
   };
@@ -99,6 +100,7 @@ function ConnectNetwork() {
       }
     } catch (e) {
       console.error(e);
+      Alert.alert('Error', e.message);
     }
   };
 
@@ -130,7 +132,11 @@ function ConnectNetwork() {
       />
       <TextField label={'MultiStage ID'} value={multiStageId} onChange={setMultiStageId} />
       <TextField label={'Api Key'} value={apiKey} onChange={setApiKey} />
-      <Button label={`${action} network`} onPress={connectNetwork} />
+      <Button
+        label={`${action} network`}
+        onPress={connectNetwork}
+        accessibilityLabel={`${action} network`}
+      />
 
       <Hr />
 

@@ -7,6 +7,7 @@ import { Text, View } from 'react-native-ui-lib';
 import Button from './common/Button';
 import TextField from './common/TextField';
 import Message from './common/Message';
+import { Alert } from 'react-native';
 
 const title = 'Sign Message';
 
@@ -18,18 +19,23 @@ function SignMessage() {
   const [verificationResult, setVerificationResult] = useState('');
 
   async function signMessage() {
-    const provider = new providers.Web3Provider(face!.getEthLikeProvider(), 'any');
+    try {
+      const provider = new providers.Web3Provider(face!.getEthLikeProvider(), 'any');
 
-    const signer = await provider.getSigner();
-    const response = await signer.signMessage(message);
-    const _verificationResult = ethers.utils.verifyMessage(message, response);
+      const signer = await provider.getSigner();
+      const response = await signer.signMessage(message);
+      const _verificationResult = ethers.utils.verifyMessage(message, response);
 
-    console.group('[Sign Information]');
-    console.log('Signed message:', response);
-    console.log('Verification result:', response);
-    console.groupEnd();
-    setSignedMessage(response);
-    setVerificationResult(_verificationResult);
+      console.group('[Sign Information]');
+      console.log('Signed message:', response);
+      console.log('Verification result:', response);
+      console.groupEnd();
+      setSignedMessage(response);
+      setVerificationResult(_verificationResult);
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', e.message);
+    }
   }
 
   if (!face) {

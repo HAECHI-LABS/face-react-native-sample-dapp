@@ -1147,23 +1147,25 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@haechi-labs/face-react-native-sdk@^1.7.3":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.7.3.tgz#bb94cbf2f2ab63a593993dab6fddf73c724316d0"
-  integrity sha512-pYjooYgkWJci70PqnuEJoXQIwlyEBIiROqdV+5Ao8j08C5ZG4d7LjbQVSgMWjXfnzSxD0iqSmPTnnxT4IC592A==
+
+"@haechi-labs/face-react-native-sdk@^1.7.7":
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.7.6.tgz#2b18604dec25ac1aed88f9f6c542e72ee883b618"
+  integrity sha512-R7hu7Kpj4LDlq8Gp79Tm5ORghOybY6XOrluHIu5ng7QHCdzhQijDH9e+yf9NP55cxjsk9IYJ9Jzu7ZNf+yMqqw==
   dependencies:
     "@solana/web3.js" "^1.73.0"
     "@types/uuid" "^8.3.4"
     buffer "^6.0.3"
     ethers "^5.6.8"
+    events "^3.3.0"
     near-api-js "^1.1.0"
     process "^0.11.10"
     uuid "^9.0.0"
 
-"@haechi-labs/face-types@^1.7.3":
-  version "1.10.11"
-  resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.10.11.tgz#502ac2a121e85e7fbc93f0f003a88d89f9deb5f1"
-  integrity sha512-VI0DDxld5ZMPPpcH9dbHEH6szbRYXvFP4M11oHCkb4KlKKZalbkRtXIdUcBKMoqRlwLbEj4qfacCDoHVY2F//Q==
+"@haechi-labs/face-types@^1.10.14":
+  version "1.10.14"
+  resolved "https://registry.yarnpkg.com/@haechi-labs/face-types/-/face-types-1.10.14.tgz#2cd51ebcff82382035cb8b0c4e54667d781387f3"
+  integrity sha512-niCYf8dD4Q3POn4KaWgdtA08inxouImLLknANKn3kRYJd8YdzrIQYFkrr2zFTbuB+gfQgp3Cc375G/GxqyGAHg==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
@@ -3803,6 +3805,11 @@ eventemitter3@^4.0.7:
   version "4.0.7"
   resolved "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
+
+events@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
+  integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
 exec-sh@^0.3.2:
   version "0.3.6"
