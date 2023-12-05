@@ -5,9 +5,14 @@ This repository is a React Native sample application for the Face React Native S
 ## Setup and Installation
 
 ```shell
-git clone https://github.com/HAECHI-LABS/face-react-native-sample-dapp.git
-npm install -g yarn
-yarn
+# Git Clone
+$ git clone https://github.com/HAECHI-LABS/face-react-native-sample-dapp.git
+
+# NPM
+$ npm install
+
+# Yarn
+$ yarn
 ```
 
 ## Run for iOS in Simulator
