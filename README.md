@@ -45,3 +45,7 @@ $ yarn
 ## Run on device
 
 - <https://reactnative.dev/docs/running-on-device>
+
+## For Haechilabs developer
+
+- [internal document](https://www.notion.so/haechilabs/RN-Sample-Dapp-Guide-a5676788d99b4a3c995b1e7fb6e2f1a2)
