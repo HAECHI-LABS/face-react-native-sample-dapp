@@ -17,7 +17,7 @@ const { alert } = Alert;
 export const erc1155ContractAddressMap: { [key: string]: string } = {
   [Network.ETHEREUM]: '',
   [Network.ROPSTEN]: '',
-  [Network.GOERLI]: '0x21af2e7801eCb07C377f6104e139FDcE5CDf1C35',
+  [Network.SEPOLIA]: '0xF512373412168439B2e587dCfc13e839F0D8472f',
   [Network.POLYGON]: '',
   [Network.MUMBAI]: '0x174d83e7547624fc9239b68b6ebd685822ef8de9',
   [Network.BNB_SMART_CHAIN]: '',

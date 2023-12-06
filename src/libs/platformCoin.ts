@@ -22,7 +22,7 @@ export function networkToBlockchain(network: Network): Blockchain {
   switch (network) {
     case Network.ETHEREUM:
     case Network.ROPSTEN:
-    case Network.GOERLI:
+    case Network.SEPOLIA:
       return Blockchain.ETHEREUM;
     case Network.POLYGON:
     case Network.MUMBAI:
