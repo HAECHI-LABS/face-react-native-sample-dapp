@@ -1,7 +1,7 @@
 import { LoginProviderType } from '@haechi-labs/face-types';
 import { useCallback, useEffect } from 'react';
 import { Text } from 'react-native-ui-lib';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { getAccountInfo } from '../libs/accountInfo';
@@ -12,6 +12,7 @@ import Box from './common/Box';
 import Button from './common/Button';
 import Message from './common/Message';
 import { Alert } from 'react-native';
+import { envAtom } from '../store/envAtom';
 
 const title = 'Login with Face Wallet';
 
@@ -25,6 +26,7 @@ function LoginWithFace() {
   const [network, setNetwork] = useRecoilState(networkAtom);
   const [account, setAccount] = useRecoilState(accountAtom);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginStatusAtom);
+  const env = useRecoilValue(envAtom);
 
   const getAccountInfoCallback = useCallback(async () => {
     if (!face) {
@@ -45,7 +47,7 @@ function LoginWithFace() {
   const loginWithCustomToken = useCallback(
     async (provider: LoginProviderType) => {
       try {
-        const credential = await getCustomLoginCredential(provider);
+        const credential = await getCustomLoginCredential(provider, env);
         if (!credential) return;
         const result = await face?.auth.loginWithIdToken({
           idToken: credential.idToken,

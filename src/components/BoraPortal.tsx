@@ -17,6 +17,7 @@ import Button from './common/Button';
 import Message from './common/Message';
 import TextField from './common/TextField';
 import { Alert } from 'react-native';
+import { envAtom } from '../store/envAtom';
 
 const title = 'BoraPortal';
 
@@ -28,6 +29,7 @@ function BoraPortal() {
   const [connectInfo, setConnectInfo] = useState<BoraPortalConnectStatusResponse>();
   const [error, setError] = useState<string | null>(null);
   const [bappUsn, setBppUsn] = useState<string | null>(null);
+  const env = useRecoilValue(envAtom);
   const setIsLoggedIn = useSetRecoilState(loginStatusAtom);
 
   useEffect(() => {
@@ -148,7 +150,7 @@ function BoraPortal() {
         return;
       }
       const signatureMessage = `boraconnect:${bappUsn}`;
-      const credential = await getCustomLoginCredential(provider);
+      const credential = await getCustomLoginCredential(provider, env);
       if (credential) {
         const boraRequest = {
           bappUsn,
