@@ -388,9 +388,9 @@ PODS:
     - React
   - RNDeviceInfo (10.3.0):
     - React-Core
-  - RNGestureHandler (2.8.0):
+  - RNGestureHandler (2.14.0):
     - React-Core
-  - RNGoogleSignin (9.0.2):
+  - RNGoogleSignin (9.1.0):
     - GoogleSignIn (~> 6.2)
     - React-Core
   - RNInAppBrowser (3.7.0):
@@ -655,14 +655,14 @@ SPEC CHECKSUMS:
   ReactCommon: 349be31adeecffc7986a0de875d7fb0dcf4e251c
   ReactNativeUiLib: 6aeabd945f901bad6c51ceae15906d6103b6a409
   RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
-  RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
-  RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
+  RNGestureHandler: 4279931048471f17faf46d912b2e96e10f1da99b
+  RNGoogleSignin: c15bdaa7e8a9e190b6169d9c96a4e8380a740f22
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNReanimated: ce445c233a6ff5600223484a88ad5704945d972a
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e1cd842328481f90195f2e5bf23fc687ab3dceee
+PODFILE CHECKSUM: 35202d7d903b4a3cce1e737e992ed618c1ed7c8a
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3
