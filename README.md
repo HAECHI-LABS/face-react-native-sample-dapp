@@ -2,6 +2,11 @@
 
 This repository is a React Native sample application for the Face React Native SDK.
 
+## Requirements
+
+For iOS Build
+* CocoaPods: ^v1.14.3
+
 ## Setup and Installation
 
 ```shell
