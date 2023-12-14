@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { Text } from 'react-native-ui-lib';
 import Box from './common/Box';
@@ -7,7 +7,7 @@ import Button from './common/Button';
 import { faceAtom, networkAtom } from '../store';
 import { Face } from '@haechi-labs/face-react-native-sdk';
 import { Blockchain, Env, NetworkChainIdMap, Network } from '@haechi-labs/face-types';
-import { API_KEY } from '../contants/apiKey';
+import { PROD_MAINNET_API_KEY, TEST_API_KEY } from '../contants/apiKey';
 import { getNetwork } from '../libs/network';
 import TextField from './common/TextField';
 import Message from './common/Message';
@@ -40,11 +40,23 @@ function ConnectNetwork() {
   const [network, setNetwork] = useRecoilState(networkAtom);
   const [blockchain, setBlockchain] = useState<Blockchain>(Blockchain.ETHEREUM);
   const [env, setEnv] = useState<Env>(envList[1]);
-  const [apiKey, setApiKey] = useState<string>(API_KEY);
+  const [apiKey, setApiKey] = useState<string>(TEST_API_KEY);
   const [chainId, setChainId] = useState('');
   const [multiStageId, setMultiStageId] = useState('');
 
   const isFaceInitialized = !!face;
+
+  useEffect(() => {
+    if (env == null) {
+      return;
+    }
+
+    if (env !== Env.ProdMainnet) {
+      setApiKey(TEST_API_KEY);
+    } else {
+      setApiKey(PROD_MAINNET_API_KEY);
+    }
+  }, [env]);
 
   const connectNetwork = () => {
     const network = getNetwork(blockchain, env);
