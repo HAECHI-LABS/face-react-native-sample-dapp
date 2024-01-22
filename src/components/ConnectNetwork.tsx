@@ -13,6 +13,7 @@ import TextField from './common/TextField';
 import Message from './common/Message';
 import { Alert, Platform } from 'react-native';
 import Hr from './common/Hr';
+import { envAtom } from '../store/envAtom';
 
 const envList = [
   Env.Local,
@@ -39,7 +40,7 @@ function ConnectNetwork() {
   const [face, setFace] = useRecoilState(faceAtom);
   const [network, setNetwork] = useRecoilState(networkAtom);
   const [blockchain, setBlockchain] = useState<Blockchain>(Blockchain.ETHEREUM);
-  const [env, setEnv] = useState<Env>(envList[1]);
+  const [env, setEnv] = useRecoilState<Env>(envAtom);
   const [apiKey, setApiKey] = useState<string>(TEST_API_KEY);
   const [chainId, setChainId] = useState('');
   const [multiStageId, setMultiStageId] = useState('');
