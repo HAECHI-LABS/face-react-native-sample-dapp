@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Incubator } from 'react-native-ui-lib';
+import { Colors, Incubator, Text, View } from 'react-native-ui-lib';
 
 interface FieldProps {
   label?: string;
@@ -9,16 +9,19 @@ interface FieldProps {
 
 function TextField({ label, value, onChange }: FieldProps) {
   return (
-    <Incubator.TextField
-      value={value}
-      placeholder={label}
-      text70
-      onChangeText={onChange}
-      floatingPlaceholder
-      containerStyle={{ marginBottom: 10 }}
-      fieldStyle={styles.withUnderline}
-      floatingPlaceholderStyle={styles.place}
-    />
+    <View>
+      <Text text70>{label}</Text>
+      <Incubator.TextField
+        value={value}
+        placeholder={label}
+        text70
+        onChangeText={onChange}
+        floatingPlaceholder
+        containerStyle={{ marginBottom: 10 }}
+        fieldStyle={styles.withUnderline}
+        floatingPlaceholderStyle={styles.place}
+      />
+    </View>
   );
 }
 const styles = StyleSheet.create({
