@@ -1531,10 +1531,10 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@haechi-labs/face-react-native-sdk@^1.7.9":
-  version "1.7.9"
-  resolved "https://registry.npmjs.org/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.7.9.tgz"
-  integrity sha512-fTPjhV87UfUHpQ4vvyIznZTzDRu4DyrrfAK7zWzcVeNsFG8reZ7IDI+UeVn/rZ8q9D1QUpt6+asVlshpKoXfhw==
+"@haechi-labs/face-react-native-sdk@^1.18.2":
+  version "1.18.2"
+  resolved "https://registry.npmjs.org/@haechi-labs/face-react-native-sdk/-/face-react-native-sdk-1.18.2.tgz"
+  integrity sha512-SSTCqDzW+CqGEil39a29hgEhgDlzv33nqm3GHcTg4XWcNd8TEHzDBCl3OEFzVgDlmem/PQJLchc/K18XORkx8A==
   dependencies:
     "@solana/web3.js" "^1.73.0"
     "@types/uuid" "^8.3.4"
@@ -1545,10 +1545,10 @@
     process "^0.11.10"
     uuid "^9.0.0"
 
-"@haechi-labs/face-types@^1.10.0", "@haechi-labs/face-types@^1.12.2":
-  version "1.12.2"
-  resolved "https://registry.npmjs.org/@haechi-labs/face-types/-/face-types-1.12.2.tgz"
-  integrity sha512-ObkQE30iSIwBXBo77c5Da4cw7Az7doKpf/xKWQUMFYHFjU4+Ia/aDh0iNn9QlA8GW6GFITMzbffTqegEFb/qTA==
+"@haechi-labs/face-types@^1.14.3":
+  version "1.14.3"
+  resolved "https://registry.npmjs.org/@haechi-labs/face-types/-/face-types-1.14.3.tgz"
+  integrity sha512-54FAJcqtAHC8uQR9LpzP9W3XF2zhWZbh5wpHyEpVFSaHR+YGeKc15eyDVF15rjFqUNRXMhuSaFic/sKVRW20fA==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"

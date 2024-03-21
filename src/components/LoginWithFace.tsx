@@ -1,5 +1,5 @@
-import { LoginProviderType } from '@haechi-labs/face-types';
-import { useCallback, useEffect } from 'react';
+import { LoginProviderType, Network } from '@haechi-labs/face-types';
+import { useCallback } from 'react';
 import { Text } from 'react-native-ui-lib';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -66,7 +66,7 @@ function LoginWithFace() {
         Alert.alert('Error', e.message);
       }
     },
-    [face?.auth, getAccountInfoCallback, setIsLoggedIn]
+    [env, face?.auth, getAccountInfoCallback, setIsLoggedIn]
   );
 
   if (!face) {
@@ -126,7 +126,7 @@ function LoginWithFace() {
   }
 
   function resetFaceSDK() {
-    setNetwork(null);
+    setNetwork(Network.ETHEREUM);
     setFace(null);
   }
 

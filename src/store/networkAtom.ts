@@ -1,7 +1,7 @@
 import { Network } from '@haechi-labs/face-types';
 import { atom } from 'recoil';
 
-export const networkAtom = atom<Network | null>({
+export const networkAtom = atom<Network>({
   key: 'networkAtom',
-  default: null,
+  default: Network.ETHEREUM,
 });

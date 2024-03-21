@@ -5,15 +5,14 @@ import { Checkbox, Text, View } from 'react-native-ui-lib';
 import Button from './common/Button';
 import Message from './common/Message';
 import { useState } from 'react';
-import { Blockchain } from '@haechi-labs/face-types';
-import { getEnvFromNetwork, getNetworkFromBlockchain } from '../libs/utils';
+import { Network } from '@haechi-labs/face-types';
 
 const title = 'Wallet Home';
 
 function WalletHome() {
   const face = useRecoilValue(faceAtom);
   const isLoggedIn = useRecoilValue(loginStatusAtom);
-  const [blockchains, setBlockchains] = useState<Blockchain[]>([]);
+  const [networks, setNetworks] = useState<Network[]>([]);
 
   if (!face) {
     return (
@@ -35,31 +34,25 @@ function WalletHome() {
     );
   }
 
-  function toggleNetwork(blockchain: Blockchain) {
-    if (blockchains.includes(blockchain)) {
-      setBlockchains(blockchains.filter((b) => b !== blockchain));
+  function toggleNetwork(network: Network) {
+    if (networks.includes(network)) {
+      setNetworks(networks.filter((b) => b !== network));
     } else {
-      setBlockchains([...blockchains, blockchain]);
+      setNetworks([...networks, network]);
     }
   }
 
-  const blockchainList = [
-    Blockchain.ETHEREUM,
-    Blockchain.POLYGON,
-    Blockchain.KLAYTN,
-    Blockchain.BNB_SMART_CHAIN,
-    Blockchain.BORA,
-  ];
+  const networkList = Object.values(Network);
 
   return (
     <Box title={title}>
       <View style={{ marginBottom: 10, marginLeft: 5 }}>
-        {blockchainList.map((b) => (
+        {networkList.map((b) => (
           <Checkbox
             key={b}
             label={b}
             color="#3e8ed0"
-            value={blockchains.includes(b)}
+            value={networks.includes(b)}
             onValueChange={() => toggleNetwork(b)}
             style={{ margin: 3 }}
           />
@@ -67,14 +60,8 @@ function WalletHome() {
       </View>
       <Button label="Open wallet home for all networks" onPress={() => face.wallet.home()} />
       <Button
-        label="Open wallet home for selected blockchains"
-        onPress={() =>
-          face.wallet.home({
-            networks: blockchains.map((b) =>
-              getNetworkFromBlockchain(b as Blockchain, getEnvFromNetwork(face!.getNetwork()))
-            ),
-          })
-        }
+        label="Open wallet home for selected networks"
+        onPress={() => face.wallet.home({ networks })}
       />
     </Box>
   );
