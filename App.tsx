@@ -12,6 +12,7 @@ import TransactionErc20 from './src/components/TransactionErc20';
 import TransactionErc721 from './src/components/TransactionErc721';
 import TransactionPlatformCoin from './src/components/TransactionPlatformCoin';
 import WalletHome from './src/components/WalletHome';
+import TransactionContractCall from './src/components/TransactionContractCall';
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           <TransactionErc20 />
           <TransactionErc721 />
           <TransactionErc1155 />
+          <TransactionContractCall />
           <SignMessage />
         </ScrollView>
       </View>
