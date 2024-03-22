@@ -1,17 +1,11 @@
 import { Face } from '@haechi-labs/face-react-native-sdk';
-import {
-  Blockchain,
-  FaceLoginResponse,
-  isEthlikeBlockchain,
-  Network,
-  networkToBlockchain,
-} from '@haechi-labs/face-types';
+import { Blockchain, FaceLoginResponse, Network } from '@haechi-labs/face-types';
 import * as solanaWeb3 from '@solana/web3.js';
 import { BigNumber, providers } from 'ethers';
 import * as nearAPI from 'near-api-js';
 
 import { config as nearConfig } from '../config/near';
-import { getProvider } from './utils';
+import { getProvider, isEthlikeBlockchain, networkToBlockchain } from './utils';
 
 interface AccountInfo {
   address: string;

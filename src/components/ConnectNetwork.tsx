@@ -6,14 +6,14 @@ import Picker from './common/Picker';
 import Button from './common/Button';
 import { faceAtom, networkAtom } from '../store';
 import { Face } from '@haechi-labs/face-react-native-sdk';
-import { Blockchain, Env, NetworkChainIdMap, Network } from '@haechi-labs/face-types';
-import { PROD_MAINNET_API_KEY, TEST_API_KEY } from '../contants/apiKey';
-import { getNetwork } from '../libs/network';
+import { Env, Network } from '@haechi-labs/face-types';
+import { PROD_MAINNET_API_KEY, TEST_API_KEY } from '../constants/apiKey';
 import TextField from './common/TextField';
 import Message from './common/Message';
 import { Alert, Platform } from 'react-native';
 import Hr from './common/Hr';
 import { envAtom } from '../store/envAtom';
+import { getNetworkByChainId } from '../libs/utils';
 
 const envList = [
   Env.Local,
@@ -24,22 +24,13 @@ const envList = [
   Env.ProdMainnet,
 ];
 
-const blockchainList = [
-  Blockchain.ETHEREUM,
-  Blockchain.POLYGON,
-  Blockchain.BNB_SMART_CHAIN,
-  Blockchain.KLAYTN,
-  Blockchain.BORA,
-  // Blockchain.NEAR,
-  // Blockchain.SOLANA,
-];
+const networkList = Object.values(Network);
 
 const title = 'Connect Network';
 
 function ConnectNetwork() {
   const [face, setFace] = useRecoilState(faceAtom);
   const [network, setNetwork] = useRecoilState(networkAtom);
-  const [blockchain, setBlockchain] = useState<Blockchain>(Blockchain.ETHEREUM);
   const [env, setEnv] = useRecoilState<Env>(envAtom);
   const [apiKey, setApiKey] = useState<string>(TEST_API_KEY);
   const [chainId, setChainId] = useState('');
@@ -60,9 +51,6 @@ function ConnectNetwork() {
   }, [env]);
 
   const connectNetwork = () => {
-    const network = getNetwork(blockchain, env);
-    setNetwork(network);
-
     let iframeUrl;
     if (env === Env.Local) {
       iframeUrl = Platform.OS === 'ios' ? 'http://localhost:3333' : 'http://10.0.2.2:3333';
@@ -93,7 +81,8 @@ function ConnectNetwork() {
 
   const connectWithChainId = () => {
     const _chainId = Number(chainId);
-    setNetwork(NetworkChainIdMap[_chainId] as Network);
+    setNetwork(getNetworkByChainId(_chainId));
+
     try {
       if (isFaceInitialized) {
         face.switchNetwork(_chainId);
@@ -136,11 +125,11 @@ function ConnectNetwork() {
         }}
       />
       <Picker
-        title="Blockchain"
-        value={blockchain}
-        items={blockchainList}
+        title="Network"
+        value={network as string}
+        items={networkList}
         onChange={(value) => {
-          setBlockchain(value as Blockchain);
+          setNetwork(value as Network);
         }}
       />
       <TextField label={'MultiStage ID'} value={multiStageId} onChange={setMultiStageId} />

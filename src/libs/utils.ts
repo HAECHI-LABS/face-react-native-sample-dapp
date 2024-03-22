@@ -2,6 +2,7 @@ import { Blockchain, Env, Network } from '@haechi-labs/face-types';
 import { BigNumber, ethers } from 'ethers';
 
 import { ERC20_ABI, ERC721_TRANSFER_ABI, ERC1155_TRANSFER_ABI } from './abi';
+import { networkConfigs } from '../constants/networkConfigs';
 
 export function makeErc20Data(functionFragment: string, to: string, value: BigNumber) {
   const ethersInterface = new ethers.utils.Interface(ERC20_ABI);
@@ -29,32 +30,22 @@ export function makeErc1155Data(
   return ethersInterface.encodeFunctionData(functionFragment, [from, to, tokenId, amount, '0x00']);
 }
 
-export function getExplorerUrl(network: Network, transactionHash: string): string {
-  const explorerMap: { [key: string]: string } = {
-    [Network.ETHEREUM]: `https://etherscan.io/tx/${transactionHash}`,
-    [Network.ROPSTEN]: `https://ropsten.etherscan.io/tx/${transactionHash}`,
-    [Network.SEPOLIA]: `https://sepolia.etherscan.io/tx/${transactionHash}`,
-    [Network.POLYGON]: `https://polygonscan.com/tx/${transactionHash}`,
-    [Network.MUMBAI]: `https://mumbai.polygonscan.com/tx/${transactionHash}`,
-    [Network.BNB_SMART_CHAIN]: `https://bscscan.com/tx/${transactionHash}`,
-    [Network.BNB_SMART_CHAIN_TESTNET]: `https://testnet.bscscan.com/tx/${transactionHash}`,
-    [Network.KLAYTN]: `https://www.klaytnfinder.io/tx/${transactionHash}`,
-    [Network.BAOBAB]: `https://baobab.klaytnfinder.io/tx/${transactionHash}`,
-    [Network.SOLANA]: `https://explorer.solana.com/tx/${transactionHash}`,
-    [Network.SOLANA_DEVNET]: `https://explorer.solana.com/tx/${transactionHash}?cluster=devnet`,
-    // [Network.NEAR]: `https://explorer.near.org/transactions/${transactionHash}`,
-    // [Network.NEAR_TESTNET]: `https://explorer.testnet.near.org/transactions/${transactionHash}`,
-    // [Network.BORA]: `https://scope.boraportal.com/${transactionHash}`,
-    // [Network.BORA_TESTNET]: `https://scope.boraportal.com/${transactionHash}`,
-  };
+export function getExplorerUrl(
+  network: Network,
+  value: string,
+  type: 'tx' | 'address' = 'tx'
+): string {
+  const networkConfig = networkConfigs.find((config) => config.network === network);
+  if (!networkConfig) return '';
 
-  return explorerMap[network];
+  if (typeof networkConfig.explorerUrl === 'function') {
+    return networkConfig.explorerUrl(value, type);
+  }
+  return `${networkConfig.explorerUrl}/${type}/${value}`;
 }
 
 export function getProvider(network: Network) {
   switch (network) {
-    case Network.ROPSTEN:
-      return 'https://eth-ropsten.alchemyapi.io/v2/UghLajTzDNBAO9EByRXWmIqduze2_jJ2';
     case Network.SEPOLIA:
       return 'https://rpc.sepolia.org';
     case Network.ETHEREUM:
@@ -165,3 +156,25 @@ export function isMainnetNetwork(network: Network) {
       return false;
   }
 }
+
+export const ethlikeBlockchains = networkConfigs
+  .filter((config) => config.isEthlike)
+  .map((config) => config.blockchain);
+
+export function isEthlikeBlockchain(blockchain: Blockchain) {
+  return ethlikeBlockchains.includes(blockchain);
+}
+
+export const getNetworkByChainId = (chainId: number) => {
+  const network = networkConfigs.find((config) => config.chainId === chainId)?.network;
+  if (!network) throw new Error('Unsupported network ' + network);
+  return network;
+};
+
+export const networkToBlockchain = (network: Network): Blockchain => {
+  if (!network) throw new Error(`networkToBlockchain() network: ${network}`);
+  const networkLowerCase = network?.toLowerCase();
+  const config = networkConfigs.find((config) => config.network === networkLowerCase);
+  if (!config) throw new Error(`Unsupported network: ${networkLowerCase}`);
+  return config.blockchain;
+};
